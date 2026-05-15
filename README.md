@@ -110,4 +110,17 @@ nexus-legal-rag/
 └── README.md
 
 
+# 📸 Screenshots
 
+## Homepage
+
+![Homepage](assets/homepage.png)
+
+---
+
+
+---
+
+## Output
+
+![Output](assets/output.png)
