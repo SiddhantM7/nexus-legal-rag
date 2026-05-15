@@ -167,9 +167,13 @@ uvicorn main:app --reload
 
 ## Homepage
 
-![Homepage](assets/homepage.png)
+![Homepage](./assets/homepage.png)
 
 ---
+
+## Output
+
+![Output](./assets/output.png)
 
 
 
