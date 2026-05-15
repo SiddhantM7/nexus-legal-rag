@@ -9,6 +9,7 @@ AI-powered Legal Retrieval-Augmented Generation (RAG) system built using FastAPI
 Nexus Legal RAG is an intelligent legal document analysis system that retrieves relevant legal context from uploaded documents and generates accurate responses using Large Language Models.
 
 The system combines:
+
 - Semantic search
 - Vector databases
 - Transformer embeddings
@@ -71,9 +72,13 @@ Prompt Engineering
 Mistral LLM (Ollama)
 ↓
 Final Legal Response
+```
 
-📂 Project Structure
+---
 
+# 📂 Project Structure
+
+```text
 nexus-legal-rag/
 │
 ├── api/
@@ -108,7 +113,55 @@ nexus-legal-rag/
 ├── main.py
 ├── requirements.txt
 └── README.md
+```
 
+---
+
+# ⚙️ Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/SiddhantM7/nexus-legal-rag.git
+cd nexus-legal-rag
+```
+
+---
+
+## Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Run Application
+
+```bash
+python main.py
+```
+
+or
+
+```bash
+uvicorn main:app --reload
+```
+
+---
+
+# 🧪 Workflow
+
+1. Upload legal PDFs
+2. Extract and preprocess text
+3. Generate embeddings
+4. Store embeddings in FAISS
+5. Retrieve relevant chunks
+6. Construct contextual prompt
+7. Send prompt to Mistral LLM
+8. Generate final legal answer
+
+---
 
 # 📸 Screenshots
 
@@ -119,8 +172,43 @@ nexus-legal-rag/
 ---
 
 
+
+# 🔮 Future Improvements
+
+- Hybrid Retrieval Pipeline
+- Re-ranking models
+- Citation-aware responses
+- GraphRAG integration
+- Multi-query retrieval
+- Fine-tuned legal LLM
+- Multi-document reasoning
+- Cloud deployment
+
 ---
 
-## Output
+# 📚 Concepts Used
 
-![Output](assets/output.png)
+- Retrieval-Augmented Generation (RAG)
+- Semantic Search
+- Transformer Embeddings
+- Vector Databases
+- Cosine Similarity
+- Prompt Engineering
+- Local LLM Inference
+
+---
+
+# 👨‍💻 Author
+
+Siddhant Maske  
+M.Tech Artificial Intelligence Student
+
+---
+
+# ⭐ Acknowledgements
+
+- Mistral AI
+- Ollama
+- HuggingFace
+- FAISS
+- FastAPI
