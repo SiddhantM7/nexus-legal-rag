@@ -171,15 +171,14 @@ uvicorn main:app --reload
 
 ## 🏠 Homepage
 
-![Homepage](./assets/homepage.png)
+<img src="assets/homepage.png" width="900"/>
 
 ---
 
 ## 📄 Generated Output
 
-![Output](./assets/output.png)
+<img src="assets/output.png" width="900"/>
 
----
 
 # 🔮 Future Improvements
 
