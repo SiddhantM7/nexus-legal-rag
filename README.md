@@ -71,3 +71,43 @@ Prompt Engineering
 Mistral LLM (Ollama)
 ↓
 Final Legal Response
+
+📂 Project Structure
+
+nexus-legal-rag/
+│
+├── api/
+│   └── routes.py
+│
+├── embedding/
+│   └── embedder.py
+│
+├── frontend/
+│   ├── index.html
+│   ├── report.html
+│   ├── script.js
+│   └── style.css
+│
+├── llm/
+│   └── generator.py
+│
+├── preprocessing/
+│   ├── chunker.py
+│   └── pdf_parser.py
+│
+├── retrieval/
+│   └── query_handler.py
+│
+├── vector_db/
+│   └── faiss_db.py
+│
+├── fine_tuning/
+│   └── trainer.py
+│
+├── ingest.py
+├── main.py
+├── requirements.txt
+└── README.md
+
+
+
