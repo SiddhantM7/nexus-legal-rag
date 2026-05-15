@@ -171,13 +171,14 @@ uvicorn main:app --reload
 
 ## 🏠 Homepage
 
-![Homepage](Asset/homepage.png)
+<img src="https://github.com/SiddhantM7/nexus-legal-rag/blob/main/Asset/homepage.png?raw=true" width="900"/>
 
 ---
 
 ## 📄 Generated Output
 
-![Output](Asset/output.png)
+<img src="https://github.com/SiddhantM7/nexus-legal-rag/blob/main/Asset/output.png?raw=true" width="900"/>
+
 
 # 🔮 Future Improvements
 
