@@ -1,0 +1,51 @@
+# Legal RAG System - Comprehensive Academic Project Report
+
+This report explains the core technical concepts of the local Legal Retrieval-Augmented Generation (RAG) system, designed for a beginner to understand for a viva presentation.
+
+---
+
+### 1. What is RAG?
+RAG stands for Retrieval-Augmented Generation. Normally, an AI model answers questions entirely from memory, which leads to hallucinations (made-up facts). RAG fixes this by first "Retrieving" relevant text documents based on the user's query, and then "Augmenting" the prompt sent to the AI so the AI can "Generate" a precise answer based ONLY on those retrieved documents.
+
+### 2. Why are embeddings used?
+Computers cannot understand raw words; they understand numbers. An embedding is a list of numbers (a vector) that represents the "meaning" of a chunk of text. Words with similar meanings will have vectors that are closer to each other in mathematical space. We use embeddings to match the user's query meaning with the document's meaning, not just exact keyword matches.
+
+### 3. Why was "all-MiniLM-L6-v2" chosen?
+This model was chosen because it is highly efficient and optimized for Semantic Textual Similarity (STS). It maps sentences to a 384-dimensional dense vector space. Because it is small, it runs extremely fast on local CPUs without needing expensive cloud GPUs, keeping the project entirely free and private.
+
+### 4. What is fine-tuning and how it works?
+Fine-tuning is the process of taking a pre-trained model and making it better at a specific task. In our system, the base embedding model understands general English well, but might struggle with dense Indian legal phrasing. Fine-tuning adjusts the model's internal weights slightly so that a legal question (like "punishment for theft") is forced to be mathematically closer to the relevant section (like "Section 378 IPC").
+
+### 5. How training data was created?
+Because we cannot manually label thousands of PDF pages, we use a synthetic data generation approach. The script iterates through the parsed text chunks and uses heuristics (like the section title or the first sentence of the text) to auto-generate a Question (e.g., "What does Section 378 state?"). The pair (Question, Context) points the model in the right direction during training. 
+
+### 6. What is chunking and why section-wise?
+Chunking is the process of breaking a massive PDF into smaller, bite-sized pieces so the vector database can process them. We opted for "Section-wise chunking" (using Regular Expressions to find "Section X"). This ensures that legal contexts are perfectly preserved. If we just cut text every 500 words blindly, a single law's definition could be split down the middle, causing the AI to lose critical context.
+
+### 7. How FAISS stores vectors?
+FAISS (Facebook AI Similarity Search) is a library that provides rapid storage and lookup for dense vectors. We use the `IndexFlatL2` object. It stores the float vectors in a flat array in RAM. Alongside it, we keep a JSON dictionary that maps the FAISS internal integer ID to our rich metadata (Text, Law Type, Section Number).
+
+### 8. How similarity search works?
+When the user types a query, it is converted into a vector. FAISS performs an exact nearest-neighbor search (L2 distance or Euclidean distance) between the query vector and every vector in the index. The vectors with the smallest distance are considered the most "similar" in meaning, and their corresponding text chunks are returned.
+
+### 9. How the query flows through the system?
+1. The user inputs text on the UI.
+2. The FastAPI backend receives the request.
+3. The embedding model turns the query into a 384-dimensional vector.
+4. FAISS searches and returns the top 5 closest text chunks.
+5. The `query_handler` structures these chunks into a specific prompt format.
+6. The compiled prompt is sent to the local Ollama LLM (Mistral).
+7. Mistral generates the answer, and FastAPI returns it to the UI with exact citations.
+
+### 10. How IPC and BNS differentiation works?
+When parsing the PDFs, the filename determines a vital piece of metadata: `law_type` (either "IPC" or "BNS"). This metadata stays physically bonded to the chunk in the DB. When building the prompt for Mistral, we explicitly instruct the LLM: "If both IPC and BNS sources are in the context, explicitly show the comparison side by side."
+
+### 11. Limitations of the system
+- The accuracy of Regex chunking heavily depends on how cleanly the PDF was formatted originally.
+- Local LLMs like Mistral 7B can occasionally ignore strict formatting rules if the input prompt becomes too complex.
+- `IndexFlatL2` scales linearly, meaning if we add millions of PDFs, it eventually becomes too slow without quantization.
+
+### 12. Future improvements
+- Introduce a specialized legal LLM explicitly fine-tuned for Indian Laws.
+- Swap the flat FAISS index to HNSW (Hierarchical Navigable Small World) for sub-millisecond retrieval on massive databases.
+- Incorporate hybrid search (BM25 keyword search + Semantic vector search).

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Report | Legal AI</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Using Mermaid JS to render visual flowchart -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: 'rgba(17, 24, 39, 0.8)',
+                primaryTextColor: '#f9fafb',
+                primaryBorderColor: '#3b82f6',
+                lineColor: '#6b7280',
+                secondaryColor: '#10b981',
+                tertiaryColor: '#8b5cf6'
+            }
+        });
+    </script>
+    <style>
+        .report-content {
+            margin-top: 2rem;
+            color: #d1d5db;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        .report-section {
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+        .report-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        .mermaid-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+            margin-bottom: 3rem;
+        }
+        .back-btn { margin-bottom: 2rem; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="glass-panel" style="max-width: 1000px; margin: 0 auto;">
+            <button class="btn-secondary back-btn" onclick="window.location.href='/'">← Back to AI Analyst</button>
+            
+            <header class="header">
+                <h1>System Architecture & Report</h1>
+                <p>Detailed design specifications of the Nexus Legal Retrieval-Augmented Generation (RAG) System.</p>
+            </header>
+
+            <div class="mermaid-box">
+                <div class="mermaid">
+                    %%{init: {'theme': 'dark'}}%%
+                    graph TD
+                        subgraph Data Pipeline
+                            A[Local PDF Documents: IPC, BNS, CrPC] -->|PyMuPDF Parser| B(Raw Text Extraction)
+                            B -->|Regex| C{Section-wise Chunking}
+                        end
+                        subgraph Embeddings & Storage
+                            C -->|nomic-embed-text-v1.5| D[Dense Embedding Vector]
+                            C -->|Metadata Mapping| E[Document Metadata]
+                            D -->|FAISS Engine| F[(FAISS Vector Database)]
+                            E -.-> F
+                        end
+                        subgraph Inference Flow
+                            G((User Query)) -->|Embedding| H(Query Vector)
+                            H -->|L2 Distance Similarity Search| F
+                            F -->|Top-K Context Retrieval| I[Ollama Format Handler]
+                            I -->|Strict RAG Prompting| J(LLaMA/Mistral AI Core)
+                            J -->|Synthesis| K((Final Augmented Answer + Citations))
+                        end
+                        
+                        style A fill:#1e293b,stroke:#9ca3af
+                        style F fill:#0f172a,stroke:#3b82f6,stroke-width:2px
+                        style J fill:#0f172a,stroke:#8b5cf6,stroke-width:2px
+                        style K fill:#064e3b,stroke:#10b981
+                </div>
+            </div>
+
+            <div class="report-content">
+                <div class="report-section">
+                    <h2>1. What is RAG?</h2>
+                    <p>RAG stands for <strong>Retrieval-Augmented Generation</strong>. Normally, an AI model answers questions entirely from its pre-trained memory, which often leads to hallucinations (guessing fake sections). RAG fixes this by first "Retrieving" exact legal text documents based on the user's query from our local FAISS database, and then "Augmenting" the prompt sent to the AI so the AI can "Generate" a precise answer based ONLY on those retrieved documents.</p>
+                </div>
+
+                <div class="report-section">
+                    <h2>2. Why are embeddings used?</h2>
+                    <p>Computers do not understand raw words; they understand mathematical patterns. An <strong>embedding</strong> is a list of numbers (a dense vector) that represents the conceptual "meaning" of a chunk of legal text. Words with similar meanings will have vectors that are closer to each other in 768-dimensional mathematical space. We use embeddings to match the user's query meaning with the document's meaning, completely bypassing the limitations of exact keyword matching.</p>
+                </div>
+
+                <div class="report-section">
+                    <h2>3. Document Chunking Strategy</h2>
+                    <p>Chunking is the process of breaking massive legal PDFs into smaller, bite-sized pieces so the vector database can process them. We opted for <strong>"Section-wise chunking"</strong> (using Regular Expressions to find "Section X" or "Article Y"). This ensures that legal contexts are perfectly preserved. If we were to cut text every 500 words blindly, a single law's definition could be split down the middle, causing the AI context to be destroyed.</p>
+                </div>
+
+                <div class="report-section">
+                    <h2>4. FAISS Vector Database & Similarity Search</h2>
+                    <p><strong>FAISS (Facebook AI Similarity Search)</strong> is an offline library providing rapid storage and lookup for dense vectors. When the user types a query, it is converted into a vector. FAISS performs an exact nearest-neighbor search (using L2 Euclidean distance) between the query vector and every vector in the index. The top 5 closest text chunks are returned and forwarded to the LLM backend.</p>
+                </div>
+
+                <div class="report-section">
+                    <h2>5. Model Fine-Tuning & Local LLMs</h2>
+                    <p>The system utilizes <code>nomic-embed-text-v1.5</code> for embeddings and <code>mistral</code> running purely locally via Ollama for generation. During development, a fine-tuning script is heavily integrated to auto-generate synthetic <em>(Question, Context)</em> pairs based on the PDFs, enforcing domain adaptation using <code>MultipleNegativesRankingLoss</code> so that the model deeply understands Indian Legal syntactic nuances.</p>
+                </div>
+            </div>
+            
+            <footer class="app-footer" style="border:none;">
+                <div class="creator-info" style="text-align:center; width:100%;">
+                    <p><strong>Developed by:</strong> Siddhant K. Maske <span>| MTech First Year</span></p>
+                    <p><strong>Project Guide:</strong> Professor Usha Kamble Madam</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

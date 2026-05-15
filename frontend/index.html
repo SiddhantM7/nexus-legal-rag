@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus | Legal AI Intelligence</title>
+    <meta name="description" content="Premium AI legal intelligence powered by RAG.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="glass-panel">
+            <header class="header">
+                <h1>Nexus Legal AI</h1>
+                <p>High-precision RAG analysis on IPC, BNS, and Special Laws</p>
+            </header>
+
+            <main>
+                <div class="search-area">
+                    <textarea id="queryInput" placeholder="Describe a legal situation or specify a section (e.g., 'What is the punishment for theft under BNS?')" spellcheck="false"></textarea>
+                    <button id="askBtn" class="btn-primary" onclick="submitQuery()">Generate Analysis</button>
+                </div>
+
+                <div id="loading" class="loading-state hidden">
+                    <div class="loading-ring"></div>
+                    <p style="color: var(--text-muted); font-size: 1.05rem;">Synthesizing legal context from local vector database...</p>
+                </div>
+
+                <div id="results" class="results-area hidden">
+                    <div class="result-card">
+                        <h3>Intelligence Briefing</h3>
+                        <div id="answerText" class="answer-content"></div>
+                    </div>
+
+                    <div class="result-card" style="background: transparent; padding: 0; border: none;">
+                        <h3 style="padding-left: 5px;">Verified Citations</h3>
+                        <ul id="sourceList" class="sources-list"></ul>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="app-footer">
+                <div class="creator-info">
+                    <p><strong>Developed by:</strong> Siddhant K. Maske <span>| MTech First Year</span></p>
+                    <p><strong>Project Guide:</strong> Professor Usha Kamble Madam</p>
+                </div>
+                <button class="btn-secondary" onclick="window.location.href='report.html'">View Architecture & Project Report</button>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

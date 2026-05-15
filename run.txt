@@ -1,0 +1,28 @@
+Step 1: Start the AI Brain (Ollama)
+The system needs the AI model to be awake in the background.
+
+Open your first Command Prompt (CMD) window.
+Type this exact command and press Enter:
+bash
+ollama run gemma3:1b
+Wait until it says "Send a message", then simply minimize this window. Leave it running!
+Step 2: Start the Web Server (FastAPI)
+Now you need to turn on the actual website that handles the PDF searches.
+
+Open a second Command Prompt window.
+Navigate to your project folder by typing:
+bash
+cd C:\Sidensys
+Start the server by typing:
+bash
+python main.py
+Wait until you see Starting Legal RAG server at http://127.0.0.1:8000. Minimize this window too!
+Step 3: Turn on the Public Link (Ngrok)
+Now you connect your running website to the public internet so you can share the link.
+
+Open a third Command Prompt window.
+Type the command directly pointing to where Ngrok downloaded:
+bash
+C:\Users\siddh\Downloads\ngrok-v3-stable-windows-amd64\ngrok.exe http 8000
+Copy the fresh shiny https://....ngrok-free.app URL it gives you and send it to your Professor!
+If you ever get an error while presenting, always check Step 2 to make sure your python main.py window didn't get closed or paused by accident!
