@@ -1,37 +1,37 @@
 # Nexus Legal RAG ⚖️🤖
 
-AI-powered Legal Retrieval-Augmented Generation (RAG) system built using FastAPI, FAISS, BGE embeddings, and Mistral LLM via Ollama.
+> AI-powered Legal Retrieval-Augmented Generation (RAG) system built using FastAPI, FAISS, BGE embeddings, and Mistral LLM via Ollama.
 
 ---
 
-# 📌 Overview
+# 🌟 Overview
 
-Nexus Legal RAG is an intelligent legal document analysis system that retrieves relevant legal context from uploaded documents and generates accurate responses using Large Language Models.
+Nexus Legal RAG is an intelligent legal document analysis and question-answering system designed to retrieve relevant legal context from uploaded documents and generate accurate, context-aware responses using Large Language Models (LLMs).
 
-The system combines:
+The project combines modern AI technologies such as:
 
-- Semantic search
-- Vector databases
-- Transformer embeddings
-- Retrieval-Augmented Generation (RAG)
-- Local LLM inference
+- 🔍 Semantic Search
+- 🧠 Transformer Embeddings
+- 📚 Vector Databases
+- ⚡ Retrieval-Augmented Generation (RAG)
+- 🤖 Local LLM Inference
 
-to provide efficient legal query answering.
+to build an efficient and scalable legal AI assistant.
 
 ---
 
 # 🚀 Features
 
-✅ Legal PDF ingestion  
-✅ Text extraction from documents  
-✅ Intelligent chunking pipeline  
+✅ Legal PDF ingestion and parsing  
+✅ Intelligent text chunking pipeline  
 ✅ BGE embedding generation  
-✅ FAISS vector database  
+✅ FAISS vector database integration  
 ✅ Semantic similarity retrieval  
 ✅ Prompt engineering pipeline  
 ✅ Mistral LLM integration via Ollama  
-✅ FastAPI backend  
-✅ Interactive frontend UI  
+✅ FastAPI backend architecture  
+✅ Interactive frontend interface  
+✅ Modular and scalable project structure  
 
 ---
 
@@ -45,8 +45,8 @@ to provide efficient legal query answering.
 | BGE Embeddings | Semantic embeddings |
 | Ollama | Local LLM serving |
 | Mistral | Response generation |
-| HTML/CSS/JS | Frontend |
-| PyMuPDF | PDF parsing |
+| HTML/CSS/JavaScript | Frontend |
+| PyMuPDF | PDF text extraction |
 
 ---
 
@@ -54,23 +54,23 @@ to provide efficient legal query answering.
 
 ```text
 Legal PDFs
-↓
+      ↓
 PDF Parsing
-↓
-Chunking
-↓
-BGE Embeddings
-↓
+      ↓
+Text Chunking
+      ↓
+BGE Embedding Generation
+      ↓
 FAISS Vector Storage
-↓
+      ↓
 Semantic Retrieval
-↓
+      ↓
 Context Construction
-↓
+      ↓
 Prompt Engineering
-↓
-Mistral LLM (Ollama)
-↓
+      ↓
+Mistral LLM via Ollama
+      ↓
 Final Legal Response
 ```
 
@@ -109,6 +109,10 @@ nexus-legal-rag/
 ├── fine_tuning/
 │   └── trainer.py
 │
+├── assets/
+│   ├── homepage.png
+│   └── output.png
+│
 ├── ingest.py
 ├── main.py
 ├── requirements.txt
@@ -119,7 +123,7 @@ nexus-legal-rag/
 
 # ⚙️ Installation
 
-## Clone Repository
+## 1️⃣ Clone Repository
 
 ```bash
 git clone https://github.com/SiddhantM7/nexus-legal-rag.git
@@ -128,7 +132,7 @@ cd nexus-legal-rag
 
 ---
 
-## Install Dependencies
+## 2️⃣ Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -136,7 +140,7 @@ pip install -r requirements.txt
 
 ---
 
-## Run Application
+## 3️⃣ Run the Application
 
 ```bash
 python main.py
@@ -152,30 +156,30 @@ uvicorn main:app --reload
 
 # 🧪 Workflow
 
-1. Upload legal PDFs
-2. Extract and preprocess text
-3. Generate embeddings
-4. Store embeddings in FAISS
-5. Retrieve relevant chunks
-6. Construct contextual prompt
-7. Send prompt to Mistral LLM
-8. Generate final legal answer
+1. Upload legal PDF documents  
+2. Extract and preprocess text  
+3. Generate semantic embeddings  
+4. Store embeddings in FAISS vector database  
+5. Retrieve relevant legal chunks  
+6. Construct contextual prompts  
+7. Generate responses using Mistral LLM  
+8. Return accurate legal answers  
 
 ---
 
 # 📸 Screenshots
 
-## Homepage
+## 🏠 Homepage
 
 ![Homepage](./assets/homepage.png)
 
 ---
 
-## Output
+## 📄 Generated Output
 
 ![Output](./assets/output.png)
 
-
+---
 
 # 🔮 Future Improvements
 
@@ -187,10 +191,11 @@ uvicorn main:app --reload
 - Fine-tuned legal LLM
 - Multi-document reasoning
 - Cloud deployment
+- User authentication system
 
 ---
 
-# 📚 Concepts Used
+# 📚 AI Concepts Used
 
 - Retrieval-Augmented Generation (RAG)
 - Semantic Search
@@ -199,13 +204,26 @@ uvicorn main:app --reload
 - Cosine Similarity
 - Prompt Engineering
 - Local LLM Inference
+- Information Retrieval Systems
+
+---
+
+# 🎯 Use Cases
+
+- Legal document analysis
+- Legal research assistance
+- Intelligent legal Q&A
+- Context-aware legal retrieval
+- AI-powered legal assistants
 
 ---
 
 # 👨‍💻 Author
 
-Siddhant Maske  
-M.Tech Artificial Intelligence Student
+## Siddhant Maske
+
+M.Tech Artificial Intelligence Student  
+Passionate about AI Research, RAG Systems, LLMs, and Intelligent Information Retrieval.
 
 ---
 
@@ -216,3 +234,11 @@ M.Tech Artificial Intelligence Student
 - HuggingFace
 - FAISS
 - FastAPI
+- Open Source AI Community
+
+---
+
+# 📌 Repository
+
+🔗 GitHub Repository:  
+https://github.com/SiddhantM7/nexus-legal-rag
